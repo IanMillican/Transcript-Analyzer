@@ -15,12 +15,12 @@ A desktop application to automate academic transcript audits for the Bachelor of
 - Git
 ##Project Structure
 src/
-├── main/
-│   ├── java/com/yourorg/transcriptanalyzer
-│   │   ├── io/             # IO Layer (PDFImporter, TextPreprocessor, ExcelWriter)
-│   │   ├── parser/         # Parsing & Categorization (TranscriptParser, CoreMatcher...)
-│   │   ├── logic/          # Business Logic (ProgressCalculator, ProjectionEngine)
-│   │   └── ui/             # Presentation Layer (DashboardView, AdminView)
-│   └── resources/
-│       └── config.json     # Default P/W lists, Excluded list
+|-main/
+|---java/com/yourorg/transcriptanalyzer
+│   │   |--- io/             # IO Layer (PDFImporter, TextPreprocessor, ExcelWriter)
+│   │   |--- parser/         # Parsing & Categorization (TranscriptParser, CoreMatcher...)
+│   │   |--- logic/          # Business Logic (ProgressCalculator, ProjectionEngine)
+│   │   |--- ui/             # Presentation Layer (DashboardView, AdminView)
+│   |---|resources/
+│       |--- config.json     # Default P/W lists, Excluded list
 └── test/
