@@ -35,7 +35,7 @@ With this MVVM structure:
 - **domain**
     - **core** contains data models (pojos).
     - **service** contains busines for ui and io layer interaction
-- **ui** responsible for the userinterface and how it communicates with the data access layer through the domain layer.
+- **ui**
     - **ui/viewmodel** responsible for methods that GUI components use to ask the domain layer for information.
     - **ui/builder** responsible for handling purely UI component creation.
 - **resources** contains all resources needed for the app to function (ex. List of W/P and Excluded courses).
