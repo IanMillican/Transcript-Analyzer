@@ -18,15 +18,15 @@ A desktop application to automate academic transcript audits for the Bachelor of
 src/
 ├── main/
 │   ├── java/
-│   │   ├──transcript-analyzer/
-│   │   │   ├── dataaccess/
-│   │   │   ├── domain/
-│   │   │   │   ├── core/
-│   │   │   │   └── service/
-│   │   │   └── ui/
-│   │   │       ├── viewmodel/
-│   │   │       └── builder/
-│   │   └── resources/
+│   │   └──transcript-analyzer/
+│   │       ├── dataaccess/
+│   │       ├── domain/
+│   │       │   ├── core/
+│   │       │   └── service/
+│   │       └── ui/
+│   │           ├── viewmodel/
+│   │           └── builder/
+│   └── resources/
 │   │       └── config.json
 └── test/
 ```
