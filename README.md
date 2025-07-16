@@ -9,7 +9,7 @@ A desktop application to automate academic transcript audits for the Bachelor of
 - **Graduation Projection**: Makes an estimated as to what term the student will graduate. Assumes 5 courses per term unless otherwise specified.
 - **Export Reports**: Exports the results generated within the application to an excel or pdf file.
 ## Getting Started
-###Prerequisites
+### Prerequisites
 - Java 17 SDK
 - Maven 3.6+
 - Git
