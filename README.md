@@ -13,16 +13,29 @@ A desktop application to automate academic transcript audits for the Bachelor of
 - Java 17 SDK
 - Maven 3.6+
 - Git
-##Project Structure
+## Project Structure
 ```
 src/
 ├── main/
-│   ├── java/com/yourorg/transcriptanalyzer
-│   │   ├── io/             # IO Layer (PDFImporter, TextPreprocessor, ExcelWriter)
-│   │   ├── parser/         # Parsing & Categorization (TranscriptParser, CoreMatcher...)
-│   │   ├── logic/          # Business Logic (ProgressCalculator, ProjectionEngine)
-│   │   └── ui/             # Presentation Layer (DashboardView, AdminView)
-│   └── resources/
-│       └── config.json     # Default P/W lists, Excluded list
-└── test/                   # Unit & integration tests
+│   ├── java/
+│   │   ├──transcript-analyzer/
+│   │   │   ├── dataaccess/
+│   │   │   ├── domain/
+│   │   │   │   ├── core/
+│   │   │   │   └── service/
+│   │   │   └── ui/
+│   │   │       ├── viewmodel/
+│   │   │       └── builder/
+│   │   └── resources/
+│   │       └── config.json
+└── test/
 ```
+With this MVVM structure:
+- **dataaccess** handles reading pdfs and writing to excel or pdfs.
+- **domain**
+    - **core** contains data models (pojos).
+    - **service** contains busines for ui and io layer interaction
+- **ui** responsible for the userinterface and how it communicates with the data access layer through the domain layer.
+    - **ui/viewmodel** responsible for methods that GUI components use to ask the domain layer for information.
+    - **ui/builder** responsible for handling purely UI component creation.
+- **resources** contains all resources needed for the app to function (ex. List of W/P and Excluded courses).
