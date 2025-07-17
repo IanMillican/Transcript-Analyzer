@@ -36,7 +36,7 @@ With this MVVM structure:
 - **dataaccess** handles reading pdfs and writing to excel or pdfs.
 - **domain**
     - **core** contains data models (pojos).
-    - **service** contains busines for ui and io layer interaction
+    - **service** contains business logic for ui and io layer interaction
 - **ui**
     - **ui/viewmodel** responsible for methods that GUI components use to ask the domain layer for information.
     - **ui/builder** responsible for handling purely UI component creation.
