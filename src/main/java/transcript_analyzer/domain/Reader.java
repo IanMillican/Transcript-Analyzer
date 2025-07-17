@@ -7,7 +7,7 @@ import transcript_analyzer.domain.core.Term;
 
 public interface Reader {
 
-	public List<Term> read();
+	public List<Term> read() throws IOException;
 	public boolean setFilePath(String path) throws IOException;
 	
 }
