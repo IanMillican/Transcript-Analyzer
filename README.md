@@ -20,6 +20,8 @@ src/
 │   ├── java/
 │   │   └──transcript-analyzer/
 │   │       ├── dataaccess/
+│   │       │   ├── reader/
+│   │       │   └── writer/
 │   │       ├── domain/
 │   │       │   ├── core/
 │   │       │   └── service/
