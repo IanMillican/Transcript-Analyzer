@@ -20,11 +20,8 @@ src/
 │   ├── java/
 │   │   └──transcript-analyzer/
 │   │       ├── dataaccess/
-│   │       │   ├── reader/
-│   │       │   └── writer/
 │   │       ├── domain/
-│   │       │   ├── core/
-│   │       │   └── service/
+│   │       │   └── core/
 │   │       └── ui/
 │   │           ├── viewmodel/
 │   │           └── builder/
@@ -34,9 +31,8 @@ src/
 ```
 With this MVVM structure:
 - **dataaccess** handles reading pdfs and writing to excel or pdfs.
-- **domain**
+- **domain** contains business logic for ui and io layer interaction
     - **core** contains data models (pojos).
-    - **service** contains business logic for ui and io layer interaction
 - **ui**
     - **ui/viewmodel** responsible for methods that GUI components use to ask the domain layer for information.
     - **ui/builder** responsible for handling purely UI component creation.
