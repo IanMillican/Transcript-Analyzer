@@ -29,7 +29,7 @@ src/
 │   │           ├── viewmodel/
 │   │           └── builder/
 │   └── resources/
-│   │       └── config.json
+│           └── config.json
 └── test/
 ```
 With this MVVM structure:
