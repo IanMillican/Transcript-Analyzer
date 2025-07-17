@@ -8,24 +8,28 @@ public class Term {
 	private final String term;
 	private final int year;
 	private final List<Course> courses;
+	private final String degree;
 	
-	public Term(String term, int year) {
+	public Term(String term, int year, String degree) {
 		this.term = term;
 		this.year = year;
 		this.courses = new ArrayList<>();
+		this.degree = degree;
 	}
 	
-	public Term(String term, int year, Course c) {
+	public Term(String term, int year, String degree, Course c) {
 		this.term = term;
 		this.year = year;
 		this.courses = new ArrayList<Course>();
 		courses.add(c);
+		this.degree = degree;
 	}
 	
-	public Term(String term, int year, List<Course> courses) {
+	public Term(String term, int year, String degree, List<Course> courses) {
 		this.term = term;
 		this.year = year;
 		this.courses = courses;
+		this.degree = degree;
 	}
 	
 	public String getTerm() {
