@@ -1,6 +1,7 @@
-package transcript_analyzer.domain.core;
+package com.ianmillican.transcriptanalyzer.domain.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Course {
 
@@ -40,6 +41,10 @@ public class Course {
 	
 	public String getGrade() {
 		return grade;
+	}
+	
+	public List<String> getTransfers() {
+		return transfers;
 	}
 	
 }

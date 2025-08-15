@@ -3,7 +3,7 @@
         "CS1073",
         "CS1083",
         "CS1103",
-        {"oneOf": ["CS1303", "MATH2203"]},
+        {"exactlyOneOf": ["CS1303", "MATH2203"]},
         "CS2043",
         "CS2253",
         "CS2263",
@@ -19,14 +19,14 @@
     "MathAndStatsCore": [
         "MATH1003",
         "MATH1013",
-        {"oneOf": ["MATH1503", "MATH2213"]},
+        {"exactlyOneOf": ["MATH1503", "MATH2213"]},
         {
-            "either": [
+            "atLeastOneOf": [
                 {
                     "allOf": [
                         "STAT2593",
                         {
-                            "oneOf": [
+                            "atLeastOneOf": [
                                 "CS3113",
                                 "MATH2003",
                                 "MATH2513",
@@ -63,7 +63,7 @@
         "CS4417",
         "CS4865",
         {
-            "oneOf": [
+            "atLeastOneOf": [
                 "CS4413",
                 "CS4415",
                 "CS4419"
@@ -101,10 +101,6 @@
     ],
 
     "WCourses": [
-        "SWE3503",
-        "SWE4040",
-        "SWE4103",
-        "SWE4913",
         "AESL1011",
         "AESL1012",
         "AESL2011",
@@ -718,7 +714,11 @@
         "PHIL4606",
         "PHIL4607",
         "PHIL4608",
-        "PHIL4609"
+        "PHIL4609",
+        "SWE3503",
+        "SWE4040",
+        "SWE4103",
+        "SWE4913"
     ],
 
     "ExcludedCourses": [
@@ -730,7 +730,6 @@
         "MATH2633",
         "ADM2623",
         "PHIL3103",
-        {"allOf": ["CS1303", "MATH2203"]},
         "UNIV0101",
         "UNIV 1001",
         "AESL1011",
@@ -739,5 +738,14 @@
         "ECE2214",
         "ECE2215",
         "ECE3221"
+    ],
+
+    "MinorRequirements": [
+        "CS1073",
+        "CS1083",
+        {"exactlyOneOf": ["CS1303", "MATH2203"]},
+        "CS2043",
+        "CS2263",
+        "CS2383"
     ]
 }
