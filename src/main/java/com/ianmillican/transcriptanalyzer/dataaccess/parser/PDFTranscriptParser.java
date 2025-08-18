@@ -68,17 +68,19 @@ public class PDFTranscriptParser implements TranscriptParser {
 			
 			
 			Student s = null;
-			if(ID != 0 && name != null && DOB != null && DOI != null) {
-				s = new Student(name, ID, DOB, DOI);
+			if(ID != 0 && name != null && DOB != null) {
+				s = new Student(name, ID, DOB);
 			} else {
 				throw new ParsingException("Issue parsing Student information");
 			}
 			
 			PDFTermParser termParser = new PDFTermParser();
 			List<Term> terms = termParser.parse(lines.subList(index, lines.size()));
-			
-			transcript = new ParsedTranscript(terms, s);
-			
+			if (DOI != null) {
+				transcript = new ParsedTranscript(terms, s, DOI);
+			} else {
+				throw new ParsingException("Issue parsing DOI. DOI is null");
+			}
 			
 		} catch (IOException e) {
 			throw new ParsingException("IOException thrown, failed to load the document");
