@@ -6,7 +6,7 @@ In addition to the above-mentioned features, it also provides a summary of the s
 - **Import pdf Transcripts**: Extracts text from a text based pdf of a students transcript using Apache PDFBox.
 - **Course Categorization**: Recognizes core courses in the transcript and categorize the rest.
 - **Maintains P/W Course List**: Saves a list of courses that has the P or W requirement met while allowing the user to add/remove courses from the list.
-- **Maintain Excluded Course List**; Saves a list of courses that are not allowed to be counted towards the graduation of BCS students.
+- **Maintain Excluded Course List**: Saves a list of courses that are not allowed to be counted towards the graduation of BCS students.
 - **Progress Dashboard**: Allows the user to view a completed vs. remaining courses and credit hours.
 - **Graduation Projection**: Makes an estimated as to what term the student will graduate. Assumes 5 courses per term unless otherwise specified.
 - **Export Reports**: Exports the results generated within the application to an excel or pdf file.
@@ -24,11 +24,10 @@ src/
     │       ├── app/
     │       ├── config/
     │       ├── dataaccess/
-    │       │   ├── dao/
     │       │   ├── export/
-    │       │   ├── parser/
-    │       │   └── storage/
+    │       │   └── parser/
     │       ├── domain/
+    │       │   ├── dao/
     │       │   ├── interfaces/
     │       │   ├── model/
     │       │   ├── rules/

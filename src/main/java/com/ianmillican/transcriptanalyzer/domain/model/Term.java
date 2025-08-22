@@ -45,7 +45,17 @@ public class Term {
 	
 	@Override
 	public String toString() {
-		return year+"/"+term + "\t" + degree + "\t" + location + "\n" + courses;
+		return year+"/"+term + "\t" + degree + "\t" + location + "\n" + 
+			printCourses();
+	}
+	
+	private String printCourses() {
+		StringBuilder builder = new StringBuilder();
+		for(Course c: courses) {
+			builder.append(c + "\n");
+		}
+		builder.deleteCharAt(builder.length() - 1);
+		return builder.toString();
 	}
 	
 }

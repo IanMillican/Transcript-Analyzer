@@ -1,12 +1,15 @@
 package com.ianmillican.transcriptanalyzer.domain.model;
 
+import java.time.MonthDay;
+import java.time.format.DateTimeFormatter;
+
 public class Student {
 
 	private final String name;
 	private final int studentID;
-	private final String DOB;
+	private final MonthDay DOB;
 	
-	public Student(String name, int studentID, String DOB) {
+	public Student(String name, int studentID, MonthDay DOB) {
 		this.name = name;
 		this.studentID = studentID;
 		this.DOB = DOB;
@@ -20,8 +23,16 @@ public class Student {
 		return studentID;
 	}
 	
-	public String getDOB() {
+	public MonthDay getDOB() {
 		return DOB;
+	}
+	
+	@Override
+	public String toString() {
+		DateTimeFormatter f = DateTimeFormatter.ofPattern("MM/dd");
+		return "Name: " + name + "\n" +
+				"Student ID: " + studentID + "\n" +
+				"Date of Birth: " + DOB.format(f);
 	}
 	
 }

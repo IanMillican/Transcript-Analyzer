@@ -13,19 +13,26 @@ import com.ianmillican.transcriptanalyzer.errors.ParsingException;
 public class PDFTermParser  implements TermParser {
 	
 	public PDFTermParser() {}
-
+	
 	@Override
 	public List<Term> parse(List<String> transcript) throws ParsingException {
 		if(transcript.isEmpty()) {
-			throw new ParsingException("This transcript has no terms.");
+			throw new ParsingException("This transcript is empty");
 		}
 		List<Term> terms = new ArrayList<>();
+		
 		while(!transcript.isEmpty()) {
 			int index = 0;
-			//Gather term and degree info
 			String line = transcript.get(index);
-			System.out.println(line);
-			Matcher m = Pattern.compile("^(\\d{4})/([A-Z]{2})\\h+([A-Z]{2,6}(?:\\h+[A-Z]{2,10})?)\\h+(\\S(?:.*\\S)?)\\h*$").matcher(line);
+			while(index < transcript.size() && skipLine(line)) {
+				line = transcript.get(index);
+				index++;
+			}
+			if(index >= transcript.size()) {
+				break;
+			}
+			//Year/Term/Degree/Location
+			Matcher m = Pattern.compile("^(\\d{4})/([A-Z]{2})\\s+([A-Z]{2,6}(?:\\s+[A-Z]{2,10})?)\\s+(\\S(?:.*\\S)?)\\s*$").matcher(line);
 			int year = 0;
 			if(m.matches()) {
 				year = Integer.parseInt(m.group(1));
@@ -35,64 +42,121 @@ public class PDFTermParser  implements TermParser {
 			String term = m.group(2);
 			String degree = m.group(3);
 			String location = m.group(4);
-			index+=2; //Skip header line
-			//Group individual courses for this term
-			List<String> courses = new ArrayList<>();
-			String currLine = transcript.get(index);
-			while(!endOfTerm(currLine)) {
-				if(!skipLine(currLine)) {
-					System.out.println(currLine);
-					courses.add(currLine);
-					index++;
-					currLine = transcript.get(index);
-				} else {
-					index++;
-					currLine = transcript.get(index);
+			index++;
+			if(index >= transcript.size()) break;
+			//Parsing Courses
+			List<String> rawCourses = new ArrayList<>();
+			line = transcript.get(index);
+			while(index < transcript.size() && !termSeparator(line)) {
+				if(!skipLine(line)) {
+					rawCourses.add(line);
 				}
+				index++;
+				line = transcript.get(index);
 			}
-			index+=2;//Skip the end of term line
+			index++;
 			PDFCourseParser parser = new PDFCourseParser();
-			List<Course> parsedCourses = parser.parse(courses);
+			List<Course> parsedCourses = parser.parse(rawCourses);
 			terms.add(new Term(term, year, degree, parsedCourses, location));
 			transcript = transcript.subList(index, transcript.size());
-			/*
-			 * Next I need to handle the end of a page and start of the next page
-			 * A new method stub to check for end of page below
-			 * A new method stub to check for start of page below
-			 */
+			
 		}
-		
 		return terms;
 	}
 	
-	private boolean endOfPage(String line) {
-		
-		return false;
-	}
-	
-	private boolean startOfPage(String line) {
-		
-		return false;
-	}
-	
 	private boolean skipLine(String line) {
-		String termSeparator = "^_+\\h*$";
-		String pageSeperator = "^UNOFFICIAL\\h+TRANSCRIPT\\h+\\(Continued\\h+on\\h+page\\h+(\\d{1,2})\\)\\h*$";
-		Matcher termSep = Pattern.compile(termSeparator).matcher(line);
-		Matcher pageSep = Pattern.compile(pageSeperator).matcher(line);
-		if(termSep.matches() || pageSep.matches()) {
+		return creditHourLine(line) || endOfYear(line) || startOrEndOfPage(line) || endOfTerm(line) || header(line) 
+				|| endOfRecord(line) || graduation(line) || deansList(line) || coop(line);
+	}
+	
+	private boolean deansList(String line) {
+		return line.startsWith("Dean's");
+	}
+	
+	private boolean coop(String line) {
+		return line.startsWith("4-months") || line.startsWith("with");
+	}
+	
+	private boolean graduation(String line) {
+		return line.startsWith("Degree conferred") || line.startsWith("Bachelor") || line.startsWith("Minor")
+				|| (line.startsWith("(") && !line.startsWith("(Continued"));
+	}
+	
+	private boolean endOfRecord(String line) {
+		String award = "^Awards\\s+Granted:$";
+		String awardInstance = "^\\d{4}-\\d{2}\\s+.*$";
+		String EOR = "^End\\s+of\\s+record$";
+		
+		Matcher awardMatcher = Pattern.compile(award).matcher(line);
+		Matcher awardInstanceMatcher = Pattern.compile(awardInstance).matcher(line);
+		Matcher EORMatcher = Pattern.compile(EOR).matcher(line);
+		
+		return awardMatcher.matches() || awardInstanceMatcher.matches() || EORMatcher.matches();
+	}
+	
+ 	private boolean header(String line) {
+		String headerLine = "GRADE\\s+HRS\\s+POINTS\\s+TRANSFERS";
+		Matcher headerMatch = Pattern.compile(headerLine).matcher(line);
+		return headerMatch.matches();
+	}
+	
+	private boolean creditHourLine(String line) {
+		String creditLine = "^Program\\s+Credit\\s+Hours:\\s+Attempted\\s+\\d{1,3}.\\d{2}\\s+Passed\\s+\\d{1,3}\\d{2}\\s+Cumulative\\s+GPA...\\s+\\d.\\d$";
+		Matcher creditMatch = Pattern.compile(creditLine).matcher(line);
+		
+		if(creditMatch.matches()) {
 			return true;
 		}
+		
 		return false;
+	}
+	
+	private boolean termSeparator(String line) {
+		String termSeparate = "^_+\\s*$";
+		Matcher termSep = Pattern.compile(termSeparate).matcher(line);
+		if(termSep.matches()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean endOfYear(String line) {
+		String gpaLine = "^\\d{4}/\\d{2}\\s+Assessment\\s+Year\\s+GPA\\.*\\s+\\d.\\d$";
+		String academicStanding = "^In\\s+good\\s+academic\\s+standing$";
+		
+		Matcher gpaMatch = Pattern.compile(gpaLine).matcher(line);
+		Matcher academicStandingMatch = Pattern.compile(academicStanding).matcher(line);
+		
+		if(gpaMatch.matches() || academicStandingMatch.matches()) {
+			return true;
+		}
+		
+		return false;
+	}
+	
+	private boolean startOrEndOfPage(String line) {
+		String endOfPage = "(?iu)^UNOFFICIAL\\s+TRANSCRIPT\\s*\\(Continued\\s+on\\s+page\\s+\\d{1,3}\\)\\s*$";
+		String firstNewPageLine = "^UNOFFICIAL\\s+TRANSCRIPT\\s*$";
+		String secondNewPageLine = "^\\(Continued\\s+from\\s+page\\s+\\d{1,3}\\)\\s*$";
+		String thirdNewPageLine = "^\\d{6,}\\s+.+$";
+
+		Matcher eop = Pattern.compile(endOfPage).matcher(line);
+		Matcher firstNPL = Pattern.compile(firstNewPageLine).matcher(line);
+		Matcher secondNPL = Pattern.compile(secondNewPageLine).matcher(line);
+		Matcher thirdNPL = Pattern.compile(thirdNewPageLine).matcher(line);
+
+		return eop.matches() || firstNPL.matches() || secondNPL.matches() || thirdNPL.matches();
 	}
 	
 	private boolean endOfTerm(String line) {
-		String endOfTerm = "^Program\\h+Credit\\h+Hours:\\h+Attempted\\h+\\d{1,3}\\.\\d{2}\\h+Passed\\h+\\d{1,3}\\.\\d{2}\\h+Cumulative\\h+GPA\\.\\.\\.\\h+\\d{1}\\.\\d{1}\\h*$";
+		String endOfTerm = "^Program\\s+Credit\\s+Hours:\\s+Attempted\\s+\\d{1,3}\\.\\d{2}\\s+Passed\\s+\\d{1,3}\\.\\d{2}\\s+Cumulative\\s+GPA\\.\\.\\.\\s+\\d{1}\\.\\d{1}\\s*$";
 		Matcher EOT = Pattern.compile(endOfTerm).matcher(line);
 		if(EOT.matches()) {
 			return true;
 		}
 		return false;
 	}
+
 
 }

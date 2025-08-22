@@ -17,8 +17,8 @@
     ],
 
     "MathAndStatsCore": [
-        "MATH1003",
-        "MATH1013",
+        {"exactlyOneOf": ["MATH1003", "MATH1053"]},
+        {"exactlyOneOf": ["MATH1013", "MATH1063"]},
         {"exactlyOneOf": ["MATH1503", "MATH2213"]},
         {
             "atLeastOneOf": [
