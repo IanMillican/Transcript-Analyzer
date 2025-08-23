@@ -1,0 +1,11 @@
+.button {
+    -fx-font-size: 14px;
+    -fx-padding: 8 16;
+}
+
+.browse-button {
+	-fx-background-color: #1976D2;
+	-fx-text-fill: white;
+	-fx-background-radius: 8;
+	-fx-border-radius: 8;
+}

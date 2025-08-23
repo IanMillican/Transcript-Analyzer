@@ -27,10 +27,6 @@ public class PDFTranscriptParser implements TranscriptParser {
 	public Transcript parse(File input) throws ParsingException {
 		
 		Transcript transcript = null;
-		//File type validation
-		if(!input.getAbsolutePath().endsWith(".pdf") ) {
-			throw new ParsingException("Invalid file type");
-		}
 		
 		try(PDDocument document = PDDocument.load(input)) {
 			PDFTextStripper stripper = new PDFTextStripper();
