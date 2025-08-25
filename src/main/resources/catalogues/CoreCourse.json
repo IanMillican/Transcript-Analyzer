@@ -1,0 +1,58 @@
+{
+	"CSCore": [
+	    "CS1073",
+	    "CS1083",
+	    "CS1103",
+	    {"exactlyOneOf": ["CS1303", "MATH2203"]},
+	    "CS2043",
+	    "CS2253",
+	    "CS2263",
+	    "CS2333",
+	    "CS2383",
+	    "CS3383",
+	    "CS3413",
+	    "CS3853",
+	    "CS3873",
+	    "CS3997"
+	],
+
+	"MathAndStatsCore": [
+	    {"exactlyOneOf": ["MATH1003", "MATH1053"]},
+	    {"exactlyOneOf": ["MATH1013", "MATH1063"]},
+	    {"exactlyOneOf": ["MATH1503", "MATH2213"]},
+	    {
+	        "atLeastOneOf": [
+	            {
+	                "allOf": [
+	                    "STAT2593",
+	                    {
+	                        "atLeastOneOf": [
+	                            "CS3113",
+	                            "MATH2003",
+	                            "MATH2513",
+	                            "MATH3033",
+	                            "MATH3063",
+	                            "MATH3093",
+	                            "MATH3213",
+	                            "MATH3333",
+	                            "MATH3343",
+	                            "MATH3353",
+	                            "MATH3363",
+	                            "MATH3373",
+	                            "MATH3383",
+	                            "MATH3413",
+	                            "MATH3803",
+	                            "MATH4503",
+	                            "STAT3093",
+	                            "STAT3303",
+	                            "STAT3373",
+	                            "STAT4083"
+	                        ]
+	                    }
+	                ]
+	            },
+	            {"allOf": ["STAT3083", "STAT3093"]}
+	        ]
+	    }
+	]
+}

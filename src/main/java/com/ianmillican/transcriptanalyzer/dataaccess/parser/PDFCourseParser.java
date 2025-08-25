@@ -31,7 +31,7 @@ public class PDFCourseParser implements CourseParser {
 					grade = "";
 				}
 				String creditHoursString = m.group(5); // Required
-				double creditHours = Double.parseDouble(creditHoursString);
+				int creditHours = Integer.parseInt(creditHoursString.split("\\.")[0]);
 				String transfers = m.group(6);
 				List<String> transfersList = 
 						(transfers == null || transfers.isBlank())

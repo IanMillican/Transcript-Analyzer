@@ -2,6 +2,7 @@ package com.ianmillican.transcriptanalyzer;
 
 import com.ianmillican.transcriptanalyzer.dataaccess.parser.PDFTranscriptParser;
 import com.ianmillican.transcriptanalyzer.domain.service.TranscriptService;
+import com.ianmillican.transcriptanalyzer.domain.interfaces.Navigator;
 import com.ianmillican.transcriptanalyzer.ui.builder.LandingPageBuilder;
 import com.ianmillican.transcriptanalyzer.ui.navigation.RootSwapNavigator;
 import com.ianmillican.transcriptanalyzer.ui.viewmodel.LandingPageViewModel;
@@ -33,11 +34,12 @@ public class Main extends Application{
 		Scene scene = new Scene(appRoot, width, height);
 	    scene.getStylesheets().addAll(
 	            getClass().getResource("/ui/css/dropzone.css").toExternalForm(),
-	            getClass().getResource("/ui/css/buttons.css").toExternalForm()
+	            getClass().getResource("/ui/css/buttons.css").toExternalForm(),
+	            getClass().getResource("/ui/css/coursetable.css").toExternalForm()
 	    );
 		
 
-		RootSwapNavigator nav = new RootSwapNavigator(appRoot);
+		Navigator nav = new RootSwapNavigator(appRoot);
 		LandingPageBuilder builder = new LandingPageBuilder(vm, nav);
 		Region landingRoot = builder.build();
 	    appRoot.getChildren().setAll(landingRoot);

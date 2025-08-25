@@ -14,8 +14,13 @@ public class RootSwapNavigator implements Navigator {
 	}
 
 	@Override
-	public void show(Region viewRoot) {
+	public void show(Region viewRoot, boolean resize) {
 		root.getChildren().setAll(viewRoot);
+		if(resize) {
+			root.getScene().getWindow().setWidth(1450);
+			root.getScene().getWindow().setHeight(1050);
+			root.getScene().getWindow().centerOnScreen();
+		}
 	}
 
 }

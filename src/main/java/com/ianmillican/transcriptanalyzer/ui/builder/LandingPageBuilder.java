@@ -1,9 +1,8 @@
 package com.ianmillican.transcriptanalyzer.ui.builder;
 
-
-import com.ianmillican.transcriptanalyzer.ui.navigation.RootSwapNavigator;
 import com.ianmillican.transcriptanalyzer.ui.viewmodel.AnalysisViewModel;
 import com.ianmillican.transcriptanalyzer.ui.viewmodel.LandingPageViewModel;
+import com.ianmillican.transcriptanalyzer.domain.interfaces.Navigator;
 
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
@@ -16,10 +15,10 @@ import javafx.util.Builder;
 public class LandingPageBuilder implements Builder<Region> {
 
 	private final LandingPageViewModel model;
-	private final RootSwapNavigator nav;
+	private final Navigator nav;
 	private Insets padding = new Insets(24);
 	
-	public LandingPageBuilder(LandingPageViewModel vm, RootSwapNavigator nav) {
+	public LandingPageBuilder(LandingPageViewModel vm, Navigator nav) {
 		model = vm;
 		this.nav = nav;
 	}
@@ -34,7 +33,7 @@ public class LandingPageBuilder implements Builder<Region> {
 			AnalysisViewModel newModel = new AnalysisViewModel(model.getTranscript(), model.getTService());
 			AnalysisBuilder newBuilder = new AnalysisBuilder(newModel, nav);
 			Region analysisRoot = newBuilder.build();
-			nav.show(analysisRoot);
+			nav.show(analysisRoot, true);
 		});
 		return result;
 	}
@@ -69,7 +68,7 @@ public class LandingPageBuilder implements Builder<Region> {
         Region prompt = Components.label("Drop the transcript here or click below\nTranscript must be a PDF", "drop-prompt");
         prompt.setMouseTransparent(true);
         VBox result = new VBox();
-        Region browseButton = Components.genericButton("Browse", model::selectTranscriptFile, "browse-button");
+        Region browseButton = Components.button("Browse", model::selectTranscriptFile, "browse-button");
         result.getChildren().addAll(prompt, browseButton, errorLabel());
         result.setAlignment(Pos.CENTER);
         result.setPadding(padding);

@@ -9,11 +9,11 @@ public class Course {
 	private final int num;
 	private final boolean coop;
 	private final String name;
-	private final double creditHours;
+	private final int creditHours;
 	private final String grade;
 	private final List<String> transfers;
 	
-	public Course(String subject, int num, String name, double creditHours, String grade, List<String> transfers) {
+	public Course(String subject, int num, String name, int creditHours, String grade, List<String> transfers) {
 		this.subject = subject;
 		this.num = num;
 		if(num == 0) {
@@ -27,7 +27,7 @@ public class Course {
 		this.transfers = transfers;
 	}
 
-	public Course(String subject, int num, String name, double creditHours, String grade) {
+	public Course(String subject, int num, String name, int creditHours, String grade) {
 		this.subject = subject;
 		this.num = num;
 		if(num == 0) {
@@ -49,7 +49,7 @@ public class Course {
 		return num;
 	}
 	
-	public boolean getCoop() {
+	public boolean isCoop() {
 		return coop;
 	}
 	
@@ -57,7 +57,7 @@ public class Course {
 		return name;
 	}
 	
-	public double getCreditHours() {
+	public int getCreditHours() {
 		return creditHours;
 	}
 	
